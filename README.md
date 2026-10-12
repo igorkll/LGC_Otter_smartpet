@@ -6,6 +6,7 @@
 ![preview](https://raw.githubusercontent.com/igorkll/LGC_Otter_smartpet/refs/heads/main/photos/5.jpg)  
 ![preview](https://raw.githubusercontent.com/igorkll/LGC_Otter_smartpet/refs/heads/main/photos/6.jpg)  
 ![preview](https://raw.githubusercontent.com/igorkll/LGC_Otter_smartpet/refs/heads/main/photos/7.jpg)  
+![preview](https://raw.githubusercontent.com/igorkll/LGC_Otter_smartpet/refs/heads/main/photos/8.jpg)  
 
 ## Homemade smartpet on ESP32C3
 smartpet features 4 mini-games, a variety of locations, and music  
