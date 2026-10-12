@@ -8,8 +8,8 @@
 ![preview](https://raw.githubusercontent.com/igorkll/LGC_Otter_smartpet/refs/heads/main/photos/7.jpg)  
 
 ## Homemade smartpet on ESP32C3
-smartpet features 4 mini-games, a variety of locations, and music.
-character status system, money and shop system, achievements
+smartpet features 4 mini-games, a variety of locations, and music  
+character status system, money and shop system, achievements  
 
 ### used hardware
 * esp32c3 mini with type-c
