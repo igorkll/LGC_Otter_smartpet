@@ -31,8 +31,9 @@ tsgl_nbs_loadedSamples* tsgl_nbs_loadSamples(size_t count, const char* prefix, c
 }
 
 static void genSample(void* buffer, size_t bufferSize, size_t sample_rate, int waveType) {
+    uint8_t* u8_buffer = (uint8_t*)buffer;
     for (size_t i = 0; i < bufferSize; i++) {
-        buffer[i] = i % 256;
+        u8_buffer[i] = i % 256;
     }
 }
 

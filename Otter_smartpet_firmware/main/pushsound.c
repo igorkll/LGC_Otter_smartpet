@@ -59,7 +59,11 @@ static tsgl_nbs_loadedSamples* nbs_loadedSamples = NULL;
 void pushsound_initNbs() {
     if (nbs_loadedSamples != NULL) return;
     
-    nbs_loadedSamples = tsgl_nbs_loadSamples(NBS_SAMPLES_COUNT, NBS_SAMPLES_PREFIX, NBS_SAMPLES_SUFFIX, NBS_SAMPLES_SAMPLERATE, NBS_SAMPLES_BITRATE, NBS_SAMPLES_CHANNELS, NBS_SAMPLES_PCMFORMAT);
+    if (NBS_GENERATE_SAMPLES) {
+        nbs_loadedSamples = tsgl_nbs_generateSamples(NBS_SAMPLES_COUNT, 0, NBS_SAMPLES_SAMPLERATE, NBS_SAMPLES_SAMPLERATE);
+    } else {
+        nbs_loadedSamples = tsgl_nbs_loadSamples(NBS_SAMPLES_COUNT, NBS_SAMPLES_PREFIX, NBS_SAMPLES_SUFFIX, NBS_SAMPLES_SAMPLERATE, NBS_SAMPLES_BITRATE, NBS_SAMPLES_CHANNELS, NBS_SAMPLES_PCMFORMAT);
+    }
 }
 
 static tsgl_nbs nbs_sounds[MAX_NBS_COUNT] = {0};
