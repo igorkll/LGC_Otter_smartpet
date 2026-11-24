@@ -558,6 +558,31 @@ esp_err_t tsgl_sound_load_pcmPartEx(tsgl_sound* sound, size_t offset, size_t loa
     return ESP_OK;
 }
 
+esp_err_t tsgl_sound_load_pcmFromRam(tsgl_sound* sound, const void* buffer, size_t bufferSize, bool autoFreeBuffer, size_t sample_rate, size_t bit_rate, size_t channels, tsgl_sound_pcm_format pcm_format) {
+    memset(sound, 0, sizeof(tsgl_sound));
+    sound->inited = true;
+    sound->math_block_flag = true;
+
+    atomic_flag_clear(&sound->lock);
+
+    sound->speed = 1.0;
+    tsgl_sound_setVolume(sound, 1);
+    sound->len = bufferSize;
+    sound->sample_rate = sample_rate;
+    sound->bit_rate = bit_rate;
+    sound->channels = channels;
+    sound->pcm_format = pcm_format;
+    sound->use_local_timer = !use_global_timer;
+
+    afterUpdateSpeed(sound);
+
+    sound->bufferSize = sound->len;
+    sound->buffer = buffer;
+    sound->not_free_buffers = !autoFreeBuffer;
+
+    return ESP_OK;
+}
+
 esp_err_t tsgl_sound_instance(tsgl_sound* sound, tsgl_sound* parent) {
     if (parent->task_used) {
         ESP_LOGE(TAG, "it is not possible to create an instance of a track with dynamic loading");
@@ -740,8 +765,10 @@ void tsgl_sound_free(tsgl_sound* sound) {
     if (sound->task_service_used) {
         vTaskDelete(sound->task_service);
     }
-    if (sound->buffer != NULL) free(sound->buffer);
-    if (sound->buffer2 != NULL) free(sound->buffer2);
+    if (!sound->not_free_buffers) {
+        if (sound->buffer != NULL) free(sound->buffer);
+        if (sound->buffer2 != NULL) free(sound->buffer2);
+    }
     if (sound->dfpwm_decode_state != NULL) free(sound->dfpwm_decode_state);
     if (use_global_timer) {
         while (atomic_flag_test_and_set(&global_sounds_lock));

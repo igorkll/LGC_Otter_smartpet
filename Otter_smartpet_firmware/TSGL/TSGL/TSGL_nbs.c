@@ -30,6 +30,25 @@ tsgl_nbs_loadedSamples* tsgl_nbs_loadSamples(size_t count, const char* prefix, c
     return loadedSamples;
 }
 
+tsgl_nbs_loadedSamples* tsgl_nbs_generateSamples(size_t count, size_t sample_rate, size_t sample_duration) {
+    tsgl_nbs_loadedSamples* loadedSamples = malloc(sizeof(tsgl_nbs_loadedSamples));
+    if (loadedSamples == NULL) return NULL;
+
+    loadedSamples->count = count;
+    loadedSamples->samples = calloc(count, sizeof(tsgl_sound));
+
+    for (size_t i = 0; i < count; i++) {
+        tsgl_sound* sound = &loadedSamples->samples[i];
+
+        if (tsgl_sound_load_pcmFromRam(sound, const void* buffer, sample_duration, true, sample_rate, 1, 1, tsgl_sound_pcm_unsigned) != ESP_OK) {
+            tsgl_nbs_freeSamples(loadedSamples);
+            return NULL;
+        }
+    }
+
+    return loadedSamples;
+}
+
 void tsgl_nbs_freeSamples(tsgl_nbs_loadedSamples* loadedSamples) {
     for (size_t i = 0; i < loadedSamples->count; i++) {
         tsgl_sound* sound = &loadedSamples->samples[i];
