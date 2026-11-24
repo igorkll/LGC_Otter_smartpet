@@ -33,9 +33,9 @@ static const char* sound_gameover_path = "/firmware/sounds/gameover.pcm";
 
 #define RNDMAX_CLOUD_SPAWN 60
 
-#define PLAYER_VELOCITY_CHANGE_X 0.5
-#define PLAYER_VELOCITY_MAX_X 2
-#define PLAYER_VELOCITY_DROP_X 0.8
+#define PLAYER_VELOCITY_CHANGE_X 1
+#define PLAYER_VELOCITY_MAX_X 4
+#define PLAYER_VELOCITY_DROP_X 0.65
 
 // ----------------------------------------------------------
 
@@ -81,6 +81,7 @@ typedef struct {
     float player_vel_y;
 
     int player_sprite_id;
+    bool player_flipX;
 
     tsgl_sound* music;
 
@@ -262,20 +263,20 @@ static void gameStart() {
     obj_spawn(screenPosToGlobalPosX(WIDTH / 2), screenPosToGlobalPosX(HEIGHT - brick_height), brick_type);
 
     int8_t player_type = get_random_object_with_type(gameobj_setup_type_player);
-    tsgl_pos player_width = get_object_width(player_type);
-    tsgl_pos player_height = get_object_height(player_type);
-    subgame_state->player_sprite_id = obj_spawn(screenPosToGlobalPosX(WIDTH / 2), screenPosToGlobalPosX(HEIGHT - player_height - brick_height), player_type);
+    subgame_state->player_sprite_id = obj_spawn(0, 0, player_type);
 }
 
 static void process() {
     subgame_state->player_vel_x *= PLAYER_VELOCITY_DROP_X;
 
     if (tsgl_keyboard_getState(&keyboard, KEY_INDEX_LEFT)) {
+        subgame_state->player_flipX = true;
         subgame_state->player_vel_x -= PLAYER_VELOCITY_CHANGE_X;
         if (subgame_state->player_vel_x < -PLAYER_VELOCITY_MAX_X) subgame_state->player_vel_x = -PLAYER_VELOCITY_MAX_X;
     }
 
     if (tsgl_keyboard_getState(&keyboard, KEY_INDEX_RIGHT)) {
+        subgame_state->player_flipX = false;
         subgame_state->player_vel_x += PLAYER_VELOCITY_CHANGE_X;
         if (subgame_state->player_vel_x > PLAYER_VELOCITY_MAX_X) subgame_state->player_vel_x = PLAYER_VELOCITY_MAX_X;
     }
@@ -283,10 +284,13 @@ static void process() {
     subgame_state->player_x += subgame_state->player_vel_x;
     subgame_state->player_y += subgame_state->player_vel_y;
 
-    Gameobj_state* player_obj = subgame_state->objs[subgame_state->player_sprite_id];
+    Gameobj_state* player_obj = &subgame_state->objs[subgame_state->player_sprite_id];
     tsgl_sprite* player_sprite = player_obj->sprite;
 
-    player_sprite
+    player_obj->x = subgame_state->player_x;
+    player_obj->y = subgame_state->player_y;
+
+    player_sprite->flipX = subgame_state->player_flipX;
 
     spawn_random_objects();
     process_objects();

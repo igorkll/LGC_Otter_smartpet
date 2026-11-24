@@ -7,8 +7,8 @@ struct tsgl_sprite { //the type is declared in "TSGL.h"
     uint8_t rotation;
     tsgl_framebuffer* fb;
     tsgl_rawcolor transparentColor;
-    bool flixX;
-    bool flixY;
+    bool flipX;
+    bool flipY;
     tsgl_pos resizeWidth;
     tsgl_pos resizeHeight;
 };

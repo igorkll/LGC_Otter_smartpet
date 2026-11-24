@@ -558,7 +558,7 @@ esp_err_t tsgl_sound_load_pcmPartEx(tsgl_sound* sound, size_t offset, size_t loa
     return ESP_OK;
 }
 
-esp_err_t tsgl_sound_load_pcmFromRam(tsgl_sound* sound, const void* buffer, size_t bufferSize, bool autoFreeBuffer, size_t sample_rate, size_t bit_rate, size_t channels, tsgl_sound_pcm_format pcm_format) {
+esp_err_t tsgl_sound_load_pcmFromRam(tsgl_sound* sound, void* buffer, size_t bufferSize, bool autoFreeBuffer, size_t sample_rate, size_t bit_rate, size_t channels, tsgl_sound_pcm_format pcm_format) {
     memset(sound, 0, sizeof(tsgl_sound));
     sound->inited = true;
     sound->math_block_flag = true;
