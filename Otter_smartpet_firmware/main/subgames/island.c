@@ -262,7 +262,7 @@ static void gameStart() {
     int8_t player_type = get_random_object_with_type(gameobj_setup_type_player);
     tsgl_pos player_width = get_object_width(player_type);
     tsgl_pos player_height = get_object_height(player_type);
-    obj_spawn(screenPosToGlobalPosX(WIDTH / 2), screenPosToGlobalPosX(HEIGHT - height - player_height), player_type);
+    obj_spawn(screenPosToGlobalPosX(WIDTH / 2), screenPosToGlobalPosX(HEIGHT - player_height - brick_height), player_type);
 }
 
 static void process() {
