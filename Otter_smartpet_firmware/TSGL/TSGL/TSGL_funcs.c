@@ -2,7 +2,7 @@
 #include <stdarg.h>
 #include <string.h>
 
-bool TSGL_funcs_hasext(const char* path, const char* ext) {
+bool tsgl_funcs_hasext(const char* path, const char* ext) {
     size_t plen = strlen(path);
     size_t elen = strlen(ext);
     if (plen < elen) return false;
@@ -17,7 +17,7 @@ bool TSGL_funcs_hasext(const char* path, const char* ext) {
     return true;
 }
 
-int TSGL_funcs_slnprintf(char *str, size_t size, const char *format, ...) {
+int tsgl_funcs_slnprintf(char *str, size_t size, const char *format, ...) {
     int result;
     va_list args;
 

@@ -97,13 +97,13 @@ void game_slotmachine_draw() {
     printsettings_slotmachine.fg = current_state.slotmachine_money > current_state.states_money ? red : green;
 
     char text[MAX_ACTION_LEN];
-    TSGL_funcs_slnprintf(text, MAX_ACTION_LEN, "\xC4\xE5\xEF\xED\xF3\xF2\xFC: %i", current_state.slotmachine_money); //Депнуть
+    tsgl_funcs_slnprintf(text, MAX_ACTION_LEN, "\xC4\xE5\xEF\xED\xF3\xF2\xFC: %i", current_state.slotmachine_money); //Депнуть
     printsettings_slotmachine.width = WIDTH;
     printsettings_slotmachine.height = SLOTMACHINE_TEXT_TARGET_HEIGHT;
     printsettings_slotmachine.stroke = black;
     tsgl_framebuffer_text(&framebuffer, 0, (HEIGHT / 2) + SLOTMACHINE_Y_CENTER_OFFSET, printsettings_slotmachine, text);
 
-    TSGL_funcs_slnprintf(text, MAX_ACTION_LEN, "%i", current_state.states_money);
+    tsgl_funcs_slnprintf(text, MAX_ACTION_LEN, "%i", current_state.states_money);
     printsettings_slotmachine.width = SLOTMACHINE_TEXT_TARGET_WIDTH * 4;
     printsettings_slotmachine.height = SLOTMACHINE_TEXT_TARGET_HEIGHT;
     printsettings_slotmachine.stroke = black;
@@ -112,7 +112,7 @@ void game_slotmachine_draw() {
 
     for (size_t i = 0; i < SLOTMACHINE_NUMS_COUNT; i++) {
         int num = current_state.slotmachine_nums[i];
-        TSGL_funcs_slnprintf(text, MAX_ACTION_LEN, "%i", num);
+        tsgl_funcs_slnprintf(text, MAX_ACTION_LEN, "%i", num);
         printsettings_slotmachine.width = SLOTMACHINE_TEXT_TARGET_WIDTH;
         printsettings_slotmachine.height = SLOTMACHINE_TEXT_TARGET_HEIGHT;
         printsettings_slotmachine.stroke = black;

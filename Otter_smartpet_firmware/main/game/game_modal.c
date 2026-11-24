@@ -17,7 +17,7 @@
 
 void game_modal_draw_gameover(int score, int maxscore) {
     char text[MAX_ACTION_LONG_LEN];
-    TSGL_funcs_slnprintf(text, MAX_ACTION_LONG_LEN, "GAMEOVER\nSCORE: %i\nMAX SCORE: %i", score, maxscore);
+    tsgl_funcs_slnprintf(text, MAX_ACTION_LONG_LEN, "GAMEOVER\nSCORE: %i\nMAX SCORE: %i", score, maxscore);
 
     printsettings_gametitle.fg = GAMEOVER_COLOR;
     printsettings_gametitle.stroke = GAMEOVER_STROKE;
@@ -28,7 +28,7 @@ void game_modal_draw_gameover(int score, int maxscore) {
 
 void game_modal_draw_win(int score, int maxscore) {
     char text[MAX_ACTION_LONG_LEN];
-    TSGL_funcs_slnprintf(text, MAX_ACTION_LONG_LEN, "WIN!\nSCORE: %i\nMAX SCORE: %i", score, maxscore);
+    tsgl_funcs_slnprintf(text, MAX_ACTION_LONG_LEN, "WIN!\nSCORE: %i\nMAX SCORE: %i", score, maxscore);
 
     printsettings_gametitle.fg = WIN_COLOR;
     printsettings_gametitle.stroke = WIN_STROKE;

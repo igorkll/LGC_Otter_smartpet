@@ -38,11 +38,11 @@ static void draw_icon(tsgl_pos ox, tsgl_pos oy, const char* icon, int count) {
 
     char path[MAX_PATH_LEN];
     path[0] = '\0';
-    TSGL_funcs_slnprintf(path, MAX_PATH_LEN, "/firmware/icons/backpack/%s.bmp", icon);
+    tsgl_funcs_slnprintf(path, MAX_PATH_LEN, "/firmware/icons/backpack/%s.bmp", icon);
 
     char text[MAX_PATH_LEN];
     text[0] = '\0';
-    TSGL_funcs_slnprintf(text, MAX_PATH_LEN, "%i", count);
+    tsgl_funcs_slnprintf(text, MAX_PATH_LEN, "%i", count);
 
     gfx_drawCenteredImageWithTransparentSupport(x, y, path);
     tsgl_framebuffer_rect(&framebuffer, cornerX, cornerY, BACKPACK_ICON_SIZE, BACKPACK_ICON_SIZE, white, BACKPACK_ICON_BORDER_SIZE);

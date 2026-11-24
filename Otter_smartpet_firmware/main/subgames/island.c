@@ -80,6 +80,8 @@ typedef struct {
     float player_vel_x;
     float player_vel_y;
 
+    int player_sprite_id;
+
     tsgl_sound* music;
 
     Gameobj_state objs[MAX_OBJECTS];
@@ -222,8 +224,8 @@ static tsgl_pos screenPosToGlobalPosY(tsgl_pos screen_pos) {
     return subgame_state->player_y + screen_pos;
 }
 
-static void spawn_random_cloud() {
-    obj_spawn(screenPosToGlobalPosX(WIDTH), tsgl_random(MIN_CLOUD_SPAWN_POS_Y, MAX_CLOUD_SPAWN_POS_Y), get_random_object_with_type(gameobj_setup_type_cloud));
+static int spawn_random_cloud() {
+    return obj_spawn(screenPosToGlobalPosX(WIDTH), tsgl_random(MIN_CLOUD_SPAWN_POS_Y, MAX_CLOUD_SPAWN_POS_Y), get_random_object_with_type(gameobj_setup_type_cloud));
 }
 
 static void spawn_clouds() {
@@ -262,7 +264,7 @@ static void gameStart() {
     int8_t player_type = get_random_object_with_type(gameobj_setup_type_player);
     tsgl_pos player_width = get_object_width(player_type);
     tsgl_pos player_height = get_object_height(player_type);
-    obj_spawn(screenPosToGlobalPosX(WIDTH / 2), screenPosToGlobalPosX(HEIGHT - player_height - brick_height), player_type);
+    subgame_state->player_sprite_id = obj_spawn(screenPosToGlobalPosX(WIDTH / 2), screenPosToGlobalPosX(HEIGHT - player_height - brick_height), player_type);
 }
 
 static void process() {
@@ -280,6 +282,11 @@ static void process() {
 
     subgame_state->player_x += subgame_state->player_vel_x;
     subgame_state->player_y += subgame_state->player_vel_y;
+
+    Gameobj_state* player_obj = subgame_state->objs[subgame_state->player_sprite_id];
+    tsgl_sprite* player_sprite = player_obj->sprite;
+
+    player_sprite
 
     spawn_random_objects();
     process_objects();
@@ -327,11 +334,11 @@ void subgame_island_handle() {
     tsgl_pos draw_y = PRINT_START_POS_Y;
     
     char text[MAX_ACTION_LEN];
-    TSGL_funcs_slnprintf(text, MAX_ACTION_LEN, "SCORE: %i", subgame_state->score);
+    tsgl_funcs_slnprintf(text, MAX_ACTION_LEN, "SCORE: %i", subgame_state->score);
     tsgl_framebuffer_text(&framebuffer, PRINT_START_POS_X, draw_y, printsettings_subgames_line_stroke, text);
     draw_y += PRINT_GAP_Y;
 
-    TSGL_funcs_slnprintf(text, MAX_ACTION_LEN, "HIGH: %i", current_state.subgame_island_max_score);
+    tsgl_funcs_slnprintf(text, MAX_ACTION_LEN, "HIGH: %i", current_state.subgame_island_max_score);
     tsgl_framebuffer_text(&framebuffer, PRINT_START_POS_X, draw_y, printsettings_subgames_line_stroke, text);
     draw_y += PRINT_GAP_Y;
 }

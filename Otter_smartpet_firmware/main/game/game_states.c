@@ -40,7 +40,7 @@ static tsgl_pos drawstate_str(tsgl_pos x, tsgl_pos y, const char* text) {
 
 static tsgl_pos drawstate_num(tsgl_pos x, tsgl_pos y, const char* title, int value) {
     char text[MAX_ACTION_LEN];
-    TSGL_funcs_slnprintf(text, MAX_ACTION_LEN, "%s: %i", title, value);
+    tsgl_funcs_slnprintf(text, MAX_ACTION_LEN, "%s: %i", title, value);
     return drawstate_str(x, y, text);
 }
 

@@ -27,7 +27,7 @@ static void startRoomMusic(int musicSampleRate, const char* str, float volume) {
     stopRoomMusic();
 
     char path[MAX_PATH_LEN];
-    TSGL_funcs_slnprintf(path, MAX_PATH_LEN, "/firmware/music/%s.dpw", str);
+    tsgl_funcs_slnprintf(path, MAX_PATH_LEN, "/firmware/music/%s.dpw", str);
     room_music = pushsound_loop(path, musicSampleRate, volume);
     tsgl_sound_setLoop(room_music, false); // запускаю музыку как loop а потом выключаю loop. чтобы она была привязана к переменной громкости музыки
 }

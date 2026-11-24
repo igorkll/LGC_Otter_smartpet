@@ -17,7 +17,7 @@ tsgl_nbs_loadedSamples* tsgl_nbs_loadSamples(size_t count, const char* prefix, c
 
     for (size_t i = 0; i < count; i++) {
         char path[TSGL_MAX_PATH_LEN];
-        TSGL_funcs_slnprintf(path, TSGL_MAX_PATH_LEN, "%s%i%s", prefix, i, suffix);
+        tsgl_funcs_slnprintf(path, TSGL_MAX_PATH_LEN, "%s%i%s", prefix, i, suffix);
 
         tsgl_sound* sound = &loadedSamples->samples[i];
 
