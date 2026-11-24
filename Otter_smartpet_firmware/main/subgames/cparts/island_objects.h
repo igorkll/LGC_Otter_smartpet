@@ -1,5 +1,9 @@
 static const Gameobj_setup objects_settings[] = {
     {
+        .path = "/firmware/subgames/island/player.bmp",
+        .gameobj_setup_type = gameobj_setup_type_player
+    },
+    {
         .path = "/firmware/subgames/island/cloud0.bmp",
         .gameobj_setup_type = gameobj_setup_type_cloud,
         .delta_x = -1

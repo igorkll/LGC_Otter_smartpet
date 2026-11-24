@@ -41,7 +41,8 @@ static const char* sound_gameover_path = "/firmware/sounds/gameover.pcm";
 
 typedef enum {
     gameobj_setup_type_cloud = 0,
-    gameobj_setup_type_brick
+    gameobj_setup_type_brick,
+    gameobj_setup_type_player
 } Gameobj_setup_type;
 
 typedef struct {
@@ -253,12 +254,15 @@ static void process_objects() {
 }
 
 static void gameStart() {
-    int8_t type = get_random_object_with_type(gameobj_setup_type_brick);
+    int8_t brick_type = get_random_object_with_type(gameobj_setup_type_brick);
+    tsgl_pos brick_width = get_object_width(type);
+    tsgl_pos brick_height = get_object_height(type);
+    obj_spawn(screenPosToGlobalPosX(WIDTH / 2), screenPosToGlobalPosX(HEIGHT - brick_height), brick_type);
 
-    tsgl_pos width = get_object_width(type);
-    tsgl_pos height = get_object_height(type);
-
-    obj_spawn(screenPosToGlobalPosX(WIDTH / 2), screenPosToGlobalPosX(HEIGHT) - height, type);
+    int8_t player_type = get_random_object_with_type(gameobj_setup_type_player);
+    tsgl_pos player_width = get_object_width(type);
+    tsgl_pos player_height = get_object_height(type);
+    obj_spawn(screenPosToGlobalPosX(WIDTH / 2), screenPosToGlobalPosX(HEIGHT - height - player_height), player_type);
 }
 
 static void process() {
