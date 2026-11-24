@@ -22,7 +22,7 @@
 #define BG_COLOR tsgl_color_raw(tsgl_color_fromHex(0x333333), framebuffer.colormode)
 #define TRAIN_COLOR tsgl_color_raw(tsgl_color_fromHex(0x444444), framebuffer.colormode)
 
-static const char* music_path = "/firmware/music/bit.dpw";
+static const char* music_path = "/firmware/music/bit0.dpw";
 #define MUSIC_VOLUME 1
 
 static const char* sound_gameover_path = "/firmware/sounds/gameover.pcm";

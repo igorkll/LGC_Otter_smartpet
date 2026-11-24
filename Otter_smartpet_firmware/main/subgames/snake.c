@@ -25,9 +25,9 @@
 #define BESTEAT_0_COLOR blue
 #define BESTEAT_1_COLOR magenta
 
-static const char* music_path = "/firmware/music/edmvselo.dpw";
+static const char* music_path = "/firmware/music/bit1.dpw";
 #define MUSIC_SAMPLERATE SOUND_DFPWM_SAMPLERATE
-#define MUSIC_VOLUME 0.6
+#define MUSIC_VOLUME 1
 
 static const char* sound_gameover_path = "/firmware/sounds/gameover.pcm";
 #define SOUND_GAMEOVER_SAMPLERATE SOUND_EFFECTS_SAMPLERATE
