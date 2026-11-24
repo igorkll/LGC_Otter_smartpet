@@ -69,6 +69,7 @@ typedef struct {
     bool backpack_opened;
     int backpack_eat_count;
     int backpack_water_count;
+    int backpack_stars_count;
 
     // states
     bool states_opened;

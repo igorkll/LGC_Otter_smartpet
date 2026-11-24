@@ -62,6 +62,7 @@ void game_backpack_draw() {
 
     draw_icon(-1, -1, "eat", current_state.backpack_eat_count);
     draw_icon(0, -1, "water", current_state.backpack_water_count);
+    draw_icon(1, -1, "star", current_state.backpack_stars_count);
 
     /*
     draw_icon(-1, 0, "eat", current_state.backpack_eat_count);
