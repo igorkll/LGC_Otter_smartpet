@@ -22,7 +22,7 @@
 #define BG_COLOR tsgl_color_raw(tsgl_color_fromHex(0x333333), framebuffer.colormode)
 #define TRAIN_COLOR tsgl_color_raw(tsgl_color_fromHex(0x444444), framebuffer.colormode)
 
-static const char* music_path = "/firmware/music/tetris.nbs";
+static const char* music_path = "/firmware/music/bit.dpw";
 #define MUSIC_VOLUME 1
 
 static const char* sound_gameover_path = "/firmware/sounds/gameover.pcm";
@@ -43,7 +43,7 @@ static const char* sound_gameover_path = "/firmware/sounds/gameover.pcm";
 #define WIREFRAME_SIZE_X (BLOCKSIZE * OBJECT_X)
 #define WIREFRAME_SIZE_Y (BLOCKSIZE * OBJECT_Y)
 
-#define WITHOUT_MUSIC NBS_NOT_USE
+#define WITHOUT_MUSIC false
 
 #define rgb tsgl_rgb
 const tsgl_color blockcolors[] = {
@@ -94,7 +94,7 @@ typedef struct {
     int score_delta;
     bool gameover_flag;
 
-    tsgl_nbs* music;
+    tsgl_sound* music;
     tsgl_sprite* person_sprite;
 
     uint8_t gamearray[GAMEARRAY_X][GAMEARRAY_Y];
@@ -320,7 +320,7 @@ void subgame_tetris_start() {
     subgame_state = calloc(1, sizeof(Subgame_state));
 
     if (!WITHOUT_MUSIC) {
-        subgame_state->music = pushsound_nbs_loop(music_path, MUSIC_VOLUME);
+        subgame_state->music = pushsound_loop(music_path, SOUND_DFPWM_SAMPLERATE, MUSIC_VOLUME);
     }
     subgame_state->person_sprite = game_getPersonSprite();
     subgame_state->oldTimerTickTime = tsgl_time();
@@ -338,7 +338,7 @@ void subgame_tetris_start() {
 
 static void stop_music() {
     if (subgame_state->music != NULL) {
-        tsgl_nbs_free(subgame_state->music);
+        tsgl_sound_free(subgame_state->music);
         subgame_state->music = NULL;
     }
 }
