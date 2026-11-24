@@ -38,7 +38,7 @@ typedef struct {
 } tsgl_nbs;
 
 tsgl_nbs_loadedSamples* tsgl_nbs_loadSamples(size_t count, const char* prefix, const char* suffix, size_t sample_rate, size_t bit_rate, size_t channels, tsgl_sound_pcm_format pcm_format);
-tsgl_nbs_loadedSamples* tsgl_nbs_generateSamples(size_t count, size_t sample_rate, size_t sample_duration);
+tsgl_nbs_loadedSamples* tsgl_nbs_generateSamples(size_t count, int64_t caps, size_t sample_rate, size_t bufferSize);
 void tsgl_nbs_freeSamples(tsgl_nbs_loadedSamples* loadedSamples);
 
 esp_err_t tsgl_nbs_load(tsgl_nbs* nbs, tsgl_nbs_loadedSamples* loadedSamples, const char* path, size_t active_notes_max);
