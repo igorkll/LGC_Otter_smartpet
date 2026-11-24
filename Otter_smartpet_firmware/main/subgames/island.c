@@ -77,6 +77,9 @@ typedef struct {
     float player_x;
     float player_y;
 
+    tsgl_pos player_sizeX;
+    tsgl_pos player_sizeY;
+
     float player_vel_x;
     float player_vel_y;
 
@@ -263,7 +266,12 @@ static void gameStart() {
     obj_spawn(screenPosToGlobalPosX(WIDTH / 2), screenPosToGlobalPosX(HEIGHT - brick_height), brick_type);
 
     int8_t player_type = get_random_object_with_type(gameobj_setup_type_player);
+    subgame_state->player_sizeX = get_object_width(player_type);
+    subgame_state->player_sizeY = get_object_height(player_type);
     subgame_state->player_sprite_id = obj_spawn(0, 0, player_type);
+
+    subgame_state->player_x = WIDTH / 2;
+    subgame_state->player_y = HEIGHT - subgame_state->player_sizeY - brick_height;
 }
 
 static void process() {
