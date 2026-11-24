@@ -80,6 +80,9 @@ typedef struct {
     tsgl_pos player_sizeX;
     tsgl_pos player_sizeY;
 
+    tsgl_pos global_offset_x;
+    tsgl_pos global_offset_y;
+
     float player_vel_x;
     float player_vel_y;
 
@@ -213,19 +216,19 @@ static tsgl_pos get_object_height(int8_t type) {
 }
 
 static tsgl_pos globalPosToScreenPosX(tsgl_pos global_pos) {
-    return global_pos - subgame_state->player_x;
+    return (global_pos - subgame_state->player_x) + subgame_state->global_offset_x;
 }
 
 static tsgl_pos globalPosToScreenPosY(tsgl_pos global_pos) {
-    return global_pos - subgame_state->player_y;
+    return (global_pos - subgame_state->player_y) + subgame_state->global_offset_y;
 }
 
 static tsgl_pos screenPosToGlobalPosX(tsgl_pos screen_pos) {
-    return subgame_state->player_x + screen_pos;
+    return (subgame_state->player_x + screen_pos) - subgame_state->global_offset_x;
 }
 
 static tsgl_pos screenPosToGlobalPosY(tsgl_pos screen_pos) {
-    return subgame_state->player_y + screen_pos;
+    return (subgame_state->player_y + screen_pos) - subgame_state->global_offset_y;
 }
 
 static int spawn_random_cloud() {
@@ -272,6 +275,9 @@ static void gameStart() {
 
     subgame_state->player_x = WIDTH / 2;
     subgame_state->player_y = HEIGHT - subgame_state->player_sizeY - brick_height;
+
+    subgame_state->global_offset_x = (WIDTH / 2) - (subgame_state->player_sizeX / 2);
+    subgame_state->global_offset_y = (HEIGHT / 2) - (subgame_state->player_sizeY / 2);
 }
 
 static void process() {
